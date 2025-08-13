@@ -25,10 +25,12 @@ export type {
   GameEventType,
   EventHandler,
   IGameError,
-  ErrorCode,
   SideEffect,
   SideEffectType,
 } from './core';
+
+// Export ErrorCode separately as it's a type
+export { type ErrorCode } from './core';
 
 export {
   UUIDSchema,
