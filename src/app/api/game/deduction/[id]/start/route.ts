@@ -163,10 +163,10 @@ export async function POST(
         const clueConfig = createStandardClueConfig(
           gameState.data.scenario,
           roleDefinitions,
-          gameState.players.map(id => ({ id })), // Simplified player objects
+          gameState.data.alivePlayers.map(id => ({ id })), // Simplified player objects
           gameState,
           {
-            difficulty: getDifficultyFromConfig(gameState.config),
+            difficulty: 'medium', // TODO: Get from game config when available
             narrativeFocus: true,
           }
         );
@@ -182,9 +182,7 @@ export async function POST(
     // Update game state to active
     const updatedGameState: DeductionGameState = {
       ...gameState,
-      status: 'active',
       phase: 'day_discussion',
-      updatedAt: Date.now(),
       data: {
         ...gameState.data,
         scenario: {
@@ -192,7 +190,7 @@ export async function POST(
           availableRoles: roleDefinitions,
         },
         round: 1,
-        timeRemaining: gameState.config.settings.discussionTimePerRound * 60, // Convert to seconds
+        timeRemaining: 300, // 5 minutes default - TODO: Get from game config
         cluesAvailable: initialClues,
         events: [
           ...gameState.data.events,
@@ -200,8 +198,8 @@ export async function POST(
             id: crypto.randomUUID(),
             type: 'phase_change',
             description: 'Game has started! Roles have been assigned.',
-            timestamp: Date.now(),
-            affectedPlayers: gameState.players,
+            timestamp: new Date(),
+            affectedPlayers: gameState.data.alivePlayers,
             isPublic: true,
             flavorText:
               gameState.data.scenario.flavorText?.dayPhaseStart ||
@@ -294,7 +292,7 @@ function isValidUUID(uuid: string): boolean {
 }
 
 function generateDefaultRoles(
-  theme: string,
+  _theme: string, // TODO: Use theme for role generation
   playerCount: number
 ): RoleDefinition[] {
   // Fallback role generation when AI fails
@@ -363,8 +361,24 @@ async function assignRolesToPlayers(
     const playerId = shuffledPlayers[i];
     const role = roleDefinitions[i];
 
+    if (!playerId) {
+      throw new GameError(
+        'INVALID_PLAYER_DATA',
+        'Player ID missing from shuffled players',
+        { playerIndex: i }
+      );
+    }
+
+    if (!role) {
+      throw new GameError(
+        'INSUFFICIENT_ROLES',
+        'Role definition missing for player',
+        { playerIndex: i, playerId }
+      );
+    }
+
     // Find teammates for mafia-type roles
-    const teammates = assignments[playerId]?.teammates || [];
+    const teammates: string[] = [];
     if (role.alignment === 'mafia') {
       // Add other mafia members as teammates
       for (const [otherPlayerId, otherAssignment] of Object.entries(
@@ -409,13 +423,6 @@ async function storeRoleAssignments(
   );
 
   await Promise.all(storePromises);
-}
-
-function getDifficultyFromConfig(config: any): 'easy' | 'medium' | 'hard' {
-  // Analyze config to determine difficulty
-  if (config.settings.duration === 'short') return 'easy';
-  if (config.settings.duration === 'long') return 'hard';
-  return 'medium';
 }
 
 function generateSecretInfo(role: RoleDefinition): string[] {

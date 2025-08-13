@@ -8,16 +8,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
-  DeductionConfig,
-  DeductionConfigSchema,
   DeductionGameState,
   DeductionScenario,
-  DeductionPhase,
 } from '../../../../../types/deduction';
-import { GameError, UUID } from '../../../../../types/core';
+import { GameError } from '../../../../../types/core';
 import { kvService } from '../../../../../lib/database';
 import { generateDeductionContent } from '../../../../../lib/ai';
-import { deductionClueSystem } from '../../../../../lib/games/deduction';
 
 // Request validation schema
 const CreateGameRequestSchema = z.object({
@@ -47,7 +43,7 @@ const CreateGameRequestSchema = z.object({
   creatorId: z.string().uuid(),
 });
 
-type CreateGameRequest = z.infer<typeof CreateGameRequestSchema>;
+// type CreateGameRequest = z.infer<typeof CreateGameRequestSchema>;
 
 interface CreateGameResponse {
   success: boolean;
@@ -80,37 +76,10 @@ export async function POST(
     // Generate unique game ID
     const gameId = crypto.randomUUID();
 
-    // Create initial game configuration
-    const gameConfig: DeductionConfig = {
-      type: 'deduction',
-      name: validatedRequest.name,
-      description: validatedRequest.description,
-      maxPlayers: validatedRequest.maxPlayers,
-      minPlayers: validatedRequest.minPlayers,
-      estimatedDurationMinutes: getDurationMinutes(
-        validatedRequest.settings.duration
-      ),
-      isPrivate: validatedRequest.isPrivate,
-      settings: {
-        theme: validatedRequest.settings.theme,
-        scenario: validatedRequest.settings.scenario,
-        duration: validatedRequest.settings.duration,
-        discussionTimePerRound:
-          validatedRequest.settings.discussionTimePerRound,
-        votingTimeLimit: validatedRequest.settings.votingTimeLimit,
-        allowsWhispering: validatedRequest.settings.allowsWhispering,
-        revealRolesOnDeath: validatedRequest.settings.revealRolesOnDeath,
-        allowsLastWords: validatedRequest.settings.allowsLastWords,
-        enableClues: validatedRequest.settings.enableClues,
-        difficultyModifiers:
-          validatedRequest.settings.difficultyModifiers || [],
-      },
-    };
-
     // Generate scenario data using AI
     let scenarioData;
     try {
-      scenarioData = await generateDeductionContent('scenario_generation', {
+      scenarioData = await generateDeductionContent('narrative', {
         theme: validatedRequest.settings.theme,
         scenario: validatedRequest.settings.scenario,
         maxPlayers: validatedRequest.maxPlayers,
@@ -124,15 +93,12 @@ export async function POST(
 
     // Create initial game state
     const initialGameState: DeductionGameState = {
-      id: gameId,
-      type: 'deduction',
-      status: 'waiting_for_players',
+      gameId: gameId,
       phase: 'role_assignment',
-      players: [validatedRequest.creatorId], // Creator automatically joins
-      currentPlayerCount: 1,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-      config: gameConfig,
+      metadata: {
+        version: 1,
+        actionHistory: [],
+      },
       data: {
         scenario: scenarioData,
         round: 0,
@@ -146,7 +112,7 @@ export async function POST(
             id: crypto.randomUUID(),
             type: 'phase_change',
             description: 'Game created and waiting for players',
-            timestamp: Date.now(),
+            timestamp: new Date(),
             affectedPlayers: [validatedRequest.creatorId],
             isPublic: true,
             flavorText: scenarioData?.introduction || 'Welcome to the game!',
@@ -216,18 +182,6 @@ export async function POST(
 }
 
 // Helper functions
-function getDurationMinutes(duration: 'short' | 'medium' | 'long'): number {
-  switch (duration) {
-    case 'short':
-      return 15;
-    case 'medium':
-      return 30;
-    case 'long':
-      return 60;
-    default:
-      return 30;
-  }
-}
 
 function getDefaultScenarioData(scenario: DeductionScenario): any {
   // Fallback scenario data when AI generation fails
