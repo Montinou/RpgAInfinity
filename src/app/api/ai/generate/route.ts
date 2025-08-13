@@ -9,7 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { claudeService, createSimplePrompt } from '@/lib/ai/claude';
-import { AIContext, RequestPriority, AIRequestSchema } from '@/types/ai';
+import { AIContext } from '@/types/ai';
 
 // Define GameError class locally
 class GameError extends Error {
@@ -68,9 +68,10 @@ const GenerateRequestSchema = z.object({
     .optional(),
 });
 
-const StreamingRequestSchema = GenerateRequestSchema.extend({
-  streaming: z.literal(true),
-});
+// Unused but kept for future streaming implementation
+// const StreamingRequestSchema = GenerateRequestSchema.extend({
+//   streaming: z.literal(true),
+// });
 
 const StructuredRequestSchema = GenerateRequestSchema.extend({
   schema: z.object({
@@ -174,7 +175,7 @@ function handleError(error: unknown, context: string): NextResponse {
  */
 export async function POST(request: NextRequest) {
   try {
-    const { method, clientId } = validateRequest(request);
+    validateRequest(request); // Validate request headers
     const body = await request.json();
 
     // Validate request body

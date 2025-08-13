@@ -22,7 +22,7 @@ import {
   InventoryItem,
   UUID,
 } from '@/types/rpg';
-import { GameError, ErrorCode } from '@/types/core';
+import { GameError } from '@/types/core';
 import { kvService } from '@/lib/database/kv-service';
 
 // ============================================================================
@@ -142,7 +142,7 @@ export class InventoryManager {
       if (quantity <= 0) {
         throw new GameError(
           'Quantity must be greater than 0',
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -179,10 +179,7 @@ export class InventoryManager {
 
       // Check capacity
       if (!this.hasCapacityFor(inventory, quantity)) {
-        throw new GameError(
-          'Not enough inventory space',
-          ErrorCode.VALIDATION_FAILED
-        );
+        throw new GameError('Not enough inventory space', 'VALIDATION_FAILED');
       }
 
       // Add as new inventory item
@@ -205,7 +202,7 @@ export class InventoryManager {
       }
       throw new GameError(
         `Failed to add item: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.OPERATION_FAILED
+        'OPERATION_FAILED'
       );
     }
   }
@@ -222,7 +219,7 @@ export class InventoryManager {
       if (quantity <= 0) {
         throw new GameError(
           'Quantity must be greater than 0',
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -231,10 +228,7 @@ export class InventoryManager {
       );
 
       if (existingItemIndex === -1) {
-        throw new GameError(
-          'Item not found in inventory',
-          ErrorCode.VALIDATION_FAILED
-        );
+        throw new GameError('Item not found in inventory', 'VALIDATION_FAILED');
       }
 
       const existingItem = inventory.items[existingItemIndex];
@@ -242,7 +236,7 @@ export class InventoryManager {
       if (existingItem.quantity < quantity) {
         throw new GameError(
           'Not enough quantity to remove',
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -269,7 +263,7 @@ export class InventoryManager {
       }
       throw new GameError(
         `Failed to remove item: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.OPERATION_FAILED
+        'OPERATION_FAILED'
       );
     }
   }
@@ -311,27 +305,21 @@ export class InventoryManager {
       );
 
       if (!inventoryItem) {
-        throw new GameError(
-          'Item not found in inventory',
-          ErrorCode.VALIDATION_FAILED
-        );
+        throw new GameError('Item not found in inventory', 'VALIDATION_FAILED');
       }
 
       const item = inventoryItem.item;
 
       // Check if item can be equipped
       if (!item.properties.equipable) {
-        throw new GameError(
-          'Item cannot be equipped',
-          ErrorCode.VALIDATION_FAILED
-        );
+        throw new GameError('Item cannot be equipped', 'VALIDATION_FAILED');
       }
 
       // Check requirements
       if (!this.meetsRequirements(character, item.requirements)) {
         throw new GameError(
           'Character does not meet item requirements',
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -340,7 +328,7 @@ export class InventoryManager {
       if (!slot) {
         throw new GameError(
           'Cannot determine equipment slot for item',
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -355,7 +343,7 @@ export class InventoryManager {
         ) {
           throw new GameError(
             'All accessory slots are occupied',
-            ErrorCode.VALIDATION_FAILED
+            'VALIDATION_FAILED'
           );
         }
         newEquipment.accessories = [...equipment.accessories, item];
@@ -383,7 +371,7 @@ export class InventoryManager {
       }
       throw new GameError(
         `Failed to equip item: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.OPERATION_FAILED
+        'OPERATION_FAILED'
       );
     }
   }
@@ -408,7 +396,7 @@ export class InventoryManager {
         if (!itemId) {
           throw new GameError(
             'Item ID required for accessories',
-            ErrorCode.VALIDATION_FAILED
+            'VALIDATION_FAILED'
           );
         }
 
@@ -416,10 +404,7 @@ export class InventoryManager {
           item => item.id === itemId
         );
         if (accessoryIndex === -1) {
-          throw new GameError(
-            'Accessory not found',
-            ErrorCode.VALIDATION_FAILED
-          );
+          throw new GameError('Accessory not found', 'VALIDATION_FAILED');
         }
 
         itemToUnequip = equipment.accessories[accessoryIndex];
@@ -432,7 +417,7 @@ export class InventoryManager {
         if (!currentItem) {
           throw new GameError(
             'No item equipped in this slot',
-            ErrorCode.VALIDATION_FAILED
+            'VALIDATION_FAILED'
           );
         }
 
@@ -441,7 +426,7 @@ export class InventoryManager {
       }
 
       if (!itemToUnequip) {
-        throw new GameError('No item to unequip', ErrorCode.VALIDATION_FAILED);
+        throw new GameError('No item to unequip', 'VALIDATION_FAILED');
       }
 
       // Add item back to inventory
@@ -457,7 +442,7 @@ export class InventoryManager {
       }
       throw new GameError(
         `Failed to unequip item: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.OPERATION_FAILED
+        'OPERATION_FAILED'
       );
     }
   }
@@ -739,7 +724,7 @@ export class InventoryManager {
       if (!success) {
         throw new GameError(
           'Failed to save inventory to storage',
-          ErrorCode.STORAGE_ERROR
+          'STORAGE_ERROR'
         );
       }
     } catch (error) {
@@ -748,7 +733,7 @@ export class InventoryManager {
       }
       throw new GameError(
         `Failed to save inventory: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.STORAGE_ERROR
+        'STORAGE_ERROR'
       );
     }
   }
@@ -766,7 +751,7 @@ export class InventoryManager {
     } catch (error) {
       throw new GameError(
         `Failed to load inventory: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.STORAGE_ERROR
+        'STORAGE_ERROR'
       );
     }
   }

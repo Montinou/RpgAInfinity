@@ -1,0 +1,369 @@
+
+> rpgai@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.31
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ⚠ Compiled with warnings
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/app/api/game/village/[id]/resources/route.ts
+Attempted import error: 'VillageResourceManager' is not exported from '@/lib/games/village/resources' (imported as 'VillageResourceManager').
+
+Import trace for requested module:
+./src/app/api/game/village/[id]/resources/route.ts
+
+ ⚠ Compiled with warnings
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+./src/lib/games/rpg/inventory.ts
+Attempted import error: 'ErrorCode' is not exported from '@/types/core' (imported as 'ErrorCode').
+
+Import trace for requested module:
+./src/lib/games/rpg/inventory.ts
+./src/components/game/rpg/CharacterSheet.tsx
+./src/app/games/rpg/[id]/page.tsx
+
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/api/ai/generate/route.ts:12:21
+Type error: 'RequestPriority' is declared but its value is never read.
+
+[0m [90m 10 |[39m [36mimport[39m { z } [36mfrom[39m [32m'zod'[39m[33m;[39m[0m
+[0m [90m 11 |[39m [36mimport[39m { claudeService[33m,[39m createSimplePrompt } [36mfrom[39m [32m'@/lib/ai/claude'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mAIContext[39m[33m,[39m [33mRequestPriority[39m[33m,[39m [33mAIRequestSchema[39m } [36mfrom[39m [32m'@/types/ai'[39m[33m;[39m[0m
+[0m [90m    |[39m                     [31m[1m^[22m[39m[0m
+[0m [90m 13 |[39m[0m
+[0m [90m 14 |[39m [90m// Define GameError class locally[39m[0m
+[0m [90m 15 |[39m [36mclass[39m [33mGameError[39m [36mextends[39m [33mError[39m {[0m
+Next.js build worker exited with code: 1 and signal: null

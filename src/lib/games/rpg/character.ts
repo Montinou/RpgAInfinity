@@ -25,9 +25,8 @@ import {
   CharacterSkillsSchema,
   CharacterSchema,
 } from '@/types/rpg';
-import { Player, UUID, GameError, ErrorCode } from '@/types/core';
+import { Player, UUID, GameError, validateWith } from '@/types/core';
 import { kvService } from '@/lib/database/kv-service';
-import { validateWith } from '@/lib/database/validation';
 
 // ============================================================================
 // CONSTANTS & CONFIGURATION
@@ -155,16 +154,13 @@ export class CharacterManager {
     try {
       // Validate input data
       if (!data.name || data.name.trim().length === 0) {
-        throw new GameError(
-          'Character name is required',
-          ErrorCode.VALIDATION_FAILED
-        );
+        throw new GameError('Character name is required', 'VALIDATION_FAILED');
       }
 
       if (data.name.length > CHARACTER_CONSTANTS.MAX_NAME_LENGTH) {
         throw new GameError(
           `Character name too long (max ${CHARACTER_CONSTANTS.MAX_NAME_LENGTH} characters)`,
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -210,7 +206,7 @@ export class CharacterManager {
       }
       throw new GameError(
         `Failed to create character: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.OPERATION_FAILED
+        'OPERATION_FAILED'
       );
     }
   }
@@ -223,7 +219,7 @@ export class CharacterManager {
       if (character.level >= CHARACTER_CONSTANTS.MAX_LEVEL) {
         throw new GameError(
           'Character is already at maximum level',
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -232,7 +228,7 @@ export class CharacterManager {
       if (character.experience < requiredExp) {
         throw new GameError(
           'Insufficient experience for level up',
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
 
@@ -275,7 +271,7 @@ export class CharacterManager {
       }
       throw new GameError(
         `Failed to level up character: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.OPERATION_FAILED
+        'OPERATION_FAILED'
       );
     }
   }
@@ -285,10 +281,7 @@ export class CharacterManager {
    */
   applyDamage(character: Character, damage: number): Character {
     if (damage < 0) {
-      throw new GameError(
-        'Damage cannot be negative',
-        ErrorCode.VALIDATION_FAILED
-      );
+      throw new GameError('Damage cannot be negative', 'VALIDATION_FAILED');
     }
 
     const newHealth = Math.max(0, character.currentHealth - damage);
@@ -306,7 +299,7 @@ export class CharacterManager {
     if (healAmount < 0) {
       throw new GameError(
         'Heal amount cannot be negative',
-        ErrorCode.VALIDATION_FAILED
+        'VALIDATION_FAILED'
       );
     }
 
@@ -357,7 +350,7 @@ export class CharacterManager {
     } catch (error) {
       throw new GameError(
         `Failed to update skills: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.VALIDATION_FAILED
+        'VALIDATION_FAILED'
       );
     }
   }
@@ -430,7 +423,7 @@ export class CharacterManager {
     } catch (error) {
       throw new GameError(
         `Failed to calculate stats: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.OPERATION_FAILED
+        'OPERATION_FAILED'
       );
     }
   }
@@ -509,7 +502,7 @@ export class CharacterManager {
       if (!success) {
         throw new GameError(
           'Failed to save character to storage',
-          ErrorCode.STORAGE_ERROR
+          'STORAGE_ERROR'
         );
       }
 
@@ -525,7 +518,7 @@ export class CharacterManager {
       }
       throw new GameError(
         `Failed to save character: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.STORAGE_ERROR
+        'STORAGE_ERROR'
       );
     }
   }
@@ -550,7 +543,7 @@ export class CharacterManager {
     } catch (error) {
       throw new GameError(
         `Failed to load character: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.STORAGE_ERROR
+        'STORAGE_ERROR'
       );
     }
   }
@@ -576,7 +569,7 @@ export class CharacterManager {
     } catch (error) {
       throw new GameError(
         `Failed to get player characters: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        ErrorCode.STORAGE_ERROR
+        'STORAGE_ERROR'
       );
     }
   }
@@ -601,7 +594,7 @@ export class CharacterManager {
       ) {
         throw new GameError(
           `Invalid ${statName}: ${value}. Must be between ${CHARACTER_CONSTANTS.MIN_STAT_VALUE} and ${CHARACTER_CONSTANTS.MAX_STAT_VALUE}`,
-          ErrorCode.VALIDATION_FAILED
+          'VALIDATION_FAILED'
         );
       }
     }

@@ -8,7 +8,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { kvService } from '@/lib/database';
-import { VillageResourceManager } from '@/lib/games/village/resources';
+import { ResourceManager } from '@/lib/games/village/resources';
 import {
   Village,
   VillageGameState,
@@ -53,7 +53,7 @@ export async function GET(
     }
 
     // Initialize resource manager
-    const resourceManager = new VillageResourceManager(village);
+    const resourceManager = new ResourceManager(village);
 
     // Calculate resource analytics
     const resourceAnalytics = {

@@ -7,7 +7,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import { Character, CharacterSkills, CharacterStats, UUID } from '@/types/rpg';
-import { GameError, ErrorCode } from '@/types/core';
+import { GameError } from '@/types/core';
 
 // ============================================================================
 // SKILL TREE INTERFACES & TYPES
@@ -182,26 +182,20 @@ export class SkillTreeManager {
   ): SkillProgression {
     const skillNode = this.getSkillNode(skillId);
     if (!skillNode) {
-      throw new GameError(
-        `Skill not found: ${skillId}`,
-        ErrorCode.VALIDATION_FAILED
-      );
+      throw new GameError(`Skill not found: ${skillId}`, 'VALIDATION_FAILED');
     }
 
     // Check if skill can be learned
     if (!this.canLearnSkill(character, skillNode, progression)) {
       throw new GameError(
         'Prerequisites not met for this skill',
-        ErrorCode.VALIDATION_FAILED
+        'VALIDATION_FAILED'
       );
     }
 
     // Check if player has enough skill points
     if (progression.availablePoints < skillNode.cost.skillPoints) {
-      throw new GameError(
-        'Insufficient skill points',
-        ErrorCode.VALIDATION_FAILED
-      );
+      throw new GameError('Insufficient skill points', 'VALIDATION_FAILED');
     }
 
     // Create learned skill entry
@@ -232,29 +226,23 @@ export class SkillTreeManager {
   upgradeSkill(skillId: UUID, progression: SkillProgression): SkillProgression {
     const skillNode = this.getSkillNode(skillId);
     if (!skillNode) {
-      throw new GameError(
-        `Skill not found: ${skillId}`,
-        ErrorCode.VALIDATION_FAILED
-      );
+      throw new GameError(`Skill not found: ${skillId}`, 'VALIDATION_FAILED');
     }
 
     const learnedSkill = progression.learnedSkills.get(skillId);
     if (!learnedSkill) {
-      throw new GameError('Skill not learned yet', ErrorCode.VALIDATION_FAILED);
+      throw new GameError('Skill not learned yet', 'VALIDATION_FAILED');
     }
 
     if (learnedSkill.currentRank >= skillNode.maxRank) {
-      throw new GameError(
-        'Skill already at maximum rank',
-        ErrorCode.VALIDATION_FAILED
-      );
+      throw new GameError('Skill already at maximum rank', 'VALIDATION_FAILED');
     }
 
     const upgradeCost = skillNode.cost.skillPoints * learnedSkill.currentRank; // Increasing cost per rank
     if (progression.availablePoints < upgradeCost) {
       throw new GameError(
         'Insufficient skill points for upgrade',
-        ErrorCode.VALIDATION_FAILED
+        'VALIDATION_FAILED'
       );
     }
 
