@@ -5,9 +5,9 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  
+
   darkMode: 'class',
-  
+
   theme: {
     extend: {
       colors: {
@@ -47,13 +47,13 @@ module.exports = {
           horror: '#7c3aed',
         },
       },
-      
+
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Lexend', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
-      
+
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'fade-out': 'fadeOut 0.5s ease-in-out',
@@ -62,10 +62,10 @@ module.exports = {
         'bounce-slow': 'bounce 2s infinite',
         'pulse-slow': 'pulse 3s infinite',
         'spin-slow': 'spin 3s linear infinite',
-        'float': 'float 3s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite',
+        float: 'float 3s ease-in-out infinite',
+        glow: 'glow 2s ease-in-out infinite',
       },
-      
+
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
@@ -92,34 +92,35 @@ module.exports = {
           '50%': { boxShadow: '0 0 20px rgba(139, 92, 246, 0.8)' },
         },
       },
-      
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'hero-pattern': "url('/patterns/hero.svg')",
         'game-pattern': "url('/patterns/game.svg')",
       },
-      
+
       screens: {
-        'xs': '475px',
+        xs: '475px',
         '3xl': '1920px',
       },
-      
+
       spacing: {
-        '128': '32rem',
-        '144': '36rem',
+        128: '32rem',
+        144: '36rem',
       },
-      
+
       borderRadius: {
         '4xl': '2rem',
       },
     },
   },
-  
+
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/container-queries'),
   ],
-}
+};

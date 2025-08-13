@@ -14,7 +14,7 @@
     "jsx": "preserve",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
-    
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
@@ -26,13 +26,13 @@
       "@/utils/*": ["./src/lib/utils/*"],
       "@/config/*": ["./config/*"]
     },
-    
+
     "plugins": [
       {
         "name": "next"
       }
     ],
-    
+
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -42,20 +42,8 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false
   },
-  
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  
-  "exclude": [
-    "node_modules",
-    ".next",
-    "out",
-    "public",
-    "coverage",
-    "dist"
-  ]
+
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+
+  "exclude": ["node_modules", ".next", "out", "public", "coverage", "dist"]
 }

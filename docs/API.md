@@ -33,6 +33,7 @@ headers: {
 Crea una nueva sesión de juego.
 
 **Request Body:**
+
 ```json
 {
   "gameType": "rpg" | "deduction" | "village",
@@ -51,6 +52,7 @@ Crea una nueva sesión de juego.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -72,6 +74,7 @@ Crea una nueva sesión de juego.
 Obtiene el estado actual del juego.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -94,6 +97,7 @@ Obtiene el estado actual del juego.
 Procesa una acción del jugador.
 
 **Request Body:**
+
 ```json
 {
   "playerId": "string",
@@ -106,6 +110,7 @@ Procesa una acción del jugador.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -126,6 +131,7 @@ Procesa una acción del jugador.
 Finaliza una sesión de juego.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -147,6 +153,7 @@ Finaliza una sesión de juego.
 Genera un mundo único para el juego.
 
 **Request Body:**
+
 ```json
 {
   "theme": "fantasy" | "scifi" | "horror" | "pirate" | "medieval",
@@ -156,6 +163,7 @@ Genera un mundo único para el juego.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -178,6 +186,7 @@ Genera un mundo único para el juego.
 Genera un personaje único.
 
 **Request Body:**
+
 ```json
 {
   "playerName": "string",
@@ -188,6 +197,7 @@ Genera un personaje único.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -211,6 +221,7 @@ Genera un personaje único.
 Genera un evento narrativo.
 
 **Request Body:**
+
 ```json
 {
   "sessionId": "string",
@@ -225,6 +236,7 @@ Genera un evento narrativo.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -245,6 +257,7 @@ Genera un evento narrativo.
 Genera texto narrativo contextual.
 
 **Request Body:**
+
 ```json
 {
   "prompt": "string",
@@ -255,6 +268,7 @@ Genera texto narrativo contextual.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -273,6 +287,7 @@ Genera texto narrativo contextual.
 `GET /api/player/:playerId`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -297,6 +312,7 @@ Genera texto narrativo contextual.
 `PATCH /api/player/:playerId`
 
 **Request Body:**
+
 ```json
 {
   "name": "string",
@@ -312,6 +328,7 @@ Genera texto narrativo contextual.
 `GET /api/analytics/game/:sessionId`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -330,6 +347,7 @@ Genera texto narrativo contextual.
 `GET /api/analytics/player/:playerId`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -349,14 +367,15 @@ Genera texto narrativo contextual.
 ```javascript
 const socket = io('wss://rpgainfinity.vercel.app', {
   auth: {
-    token: 'YOUR_TOKEN'
-  }
+    token: 'YOUR_TOKEN',
+  },
 });
 ```
 
 ### Events
 
 **Client to Server:**
+
 - `join_game`: Join a game session
 - `leave_game`: Leave current game
 - `player_action`: Send player action
@@ -364,6 +383,7 @@ const socket = io('wss://rpgainfinity.vercel.app', {
 - `vote`: Submit vote
 
 **Server to Client:**
+
 - `game_update`: Game state update
 - `player_joined`: New player joined
 - `player_left`: Player left
@@ -388,16 +408,16 @@ const socket = io('wss://rpgainfinity.vercel.app', {
 
 ### Common Error Codes
 
-| Code | Status | Description |
-|------|--------|-------------|
-| `AUTH_REQUIRED` | 401 | Authentication required |
-| `AUTH_INVALID` | 401 | Invalid token |
-| `FORBIDDEN` | 403 | Access denied |
-| `NOT_FOUND` | 404 | Resource not found |
-| `VALIDATION_ERROR` | 400 | Invalid request data |
-| `RATE_LIMIT` | 429 | Too many requests |
-| `AI_ERROR` | 500 | AI generation failed |
-| `SERVER_ERROR` | 500 | Internal server error |
+| Code               | Status | Description             |
+| ------------------ | ------ | ----------------------- |
+| `AUTH_REQUIRED`    | 401    | Authentication required |
+| `AUTH_INVALID`     | 401    | Invalid token           |
+| `FORBIDDEN`        | 403    | Access denied           |
+| `NOT_FOUND`        | 404    | Resource not found      |
+| `VALIDATION_ERROR` | 400    | Invalid request data    |
+| `RATE_LIMIT`       | 429    | Too many requests       |
+| `AI_ERROR`         | 500    | AI generation failed    |
+| `SERVER_ERROR`     | 500    | Internal server error   |
 
 ## 📝 TypeScript Types
 
@@ -452,7 +472,7 @@ interface GameEvent {
 enum GameType {
   RPG = 'rpg',
   DEDUCTION = 'deduction',
-  VILLAGE = 'village'
+  VILLAGE = 'village',
 }
 
 enum GameState {
@@ -460,7 +480,7 @@ enum GameState {
   PLAYING = 'playing',
   VOTING = 'voting',
   PAUSED = 'paused',
-  ENDED = 'ended'
+  ENDED = 'ended',
 }
 
 enum EventType {
@@ -468,7 +488,7 @@ enum EventType {
   SOCIAL = 'social',
   EXPLORATION = 'exploration',
   MYSTERY = 'mystery',
-  RESOURCE = 'resource'
+  RESOURCE = 'resource',
 }
 ```
 
@@ -479,7 +499,7 @@ import { RpgAInfinitySDK } from '@rpgainfinity/sdk';
 
 const sdk = new RpgAInfinitySDK({
   apiKey: 'YOUR_API_KEY',
-  baseUrl: 'https://rpgainfinity.vercel.app/api'
+  baseUrl: 'https://rpgainfinity.vercel.app/api',
 });
 
 // Create game
@@ -487,13 +507,13 @@ const game = await sdk.games.create({
   gameType: 'rpg',
   players: [
     { id: '1', name: 'Alice' },
-    { id: '2', name: 'Bob' }
+    { id: '2', name: 'Bob' },
   ],
   settings: {
     difficulty: 'normal',
     theme: 'fantasy',
-    duration: 30
-  }
+    duration: 30,
+  },
 });
 
 // Process action
@@ -501,12 +521,12 @@ const result = await sdk.games.action(game.sessionId, {
   playerId: '1',
   action: {
     type: 'explore',
-    target: 'dark_forest'
-  }
+    target: 'dark_forest',
+  },
 });
 
 // Subscribe to updates
-sdk.subscribe(game.sessionId, (event) => {
+sdk.subscribe(game.sessionId, event => {
   console.log('Game event:', event);
 });
 ```
@@ -520,6 +540,7 @@ GET /api/endpoint?page=1&limit=20&sort=created_at&order=desc
 ```
 
 **Response Headers:**
+
 ```
 X-Total-Count: 100
 X-Page-Count: 5
@@ -546,4 +567,4 @@ Configura webhooks para recibir notificaciones:
 
 ---
 
-*Para más información, consulta la [documentación completa](https://rpgainfinity.vercel.app/docs)*
+_Para más información, consulta la [documentación completa](https://rpgainfinity.vercel.app/docs)_

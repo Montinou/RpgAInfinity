@@ -107,29 +107,36 @@ Usa nuestra [plantilla de bug report](.github/ISSUE_TEMPLATE/bug_report.md):
 
 ```markdown
 ## Descripción
+
 Descripción clara y concisa del bug.
 
 ## Pasos para Reproducir
+
 1. Ir a '...'
 2. Hacer click en '...'
 3. Ver error
 
 ## Comportamiento Esperado
+
 Qué debería pasar.
 
 ## Comportamiento Actual
+
 Qué está pasando.
 
 ## Screenshots
+
 Si aplica.
 
 ## Entorno
+
 - OS: [e.g. macOS 14.0]
 - Browser: [e.g. Chrome 120]
 - Node: [e.g. 18.17.0]
 - Version: [e.g. 1.0.0]
 
 ## Contexto Adicional
+
 Cualquier otra información relevante.
 ```
 
@@ -145,18 +152,23 @@ Cualquier otra información relevante.
 
 ```markdown
 ## Problema
+
 ¿Qué problema resuelve esta feature?
 
 ## Solución Propuesta
+
 Describe cómo funcionaría.
 
 ## Alternativas Consideradas
+
 ¿Qué otras soluciones consideraste?
 
 ## Mockups/Ejemplos
+
 Si tienes diseños o ejemplos.
 
 ## Impacto
+
 - Usuarios afectados:
 - Prioridad:
 - Complejidad estimada:
@@ -185,23 +197,28 @@ Si tienes diseños o ejemplos.
 
 ```markdown
 ## Descripción
+
 Breve descripción de los cambios.
 
 ## Tipo de Cambio
+
 - [ ] Bug fix
 - [ ] Nueva feature
 - [ ] Breaking change
 - [ ] Documentación
 
 ## Cómo se ha Testeado
+
 - [ ] Tests unitarios
 - [ ] Tests integración
 - [ ] Tests manuales
 
 ## Screenshots
+
 (si aplica)
 
 ## Checklist
+
 - [ ] Mi código sigue los estándares
 - [ ] He hecho self-review
 - [ ] He comentado código complejo
@@ -227,17 +244,17 @@ function createGame(config: GameConfig): Game {
   if (!config.players.length) {
     throw new Error('Game requires at least one player');
   }
-  
+
   // Lógica separada en funciones pequeñas
   const world = generateWorld(config.settings);
   const characters = createCharacters(config.players);
-  
+
   return new Game(world, characters);
 }
 
 // ❌ Malo
 function makeGame(c) {
-  if(!c.p.length) throw 'bad';
+  if (!c.p.length) throw 'bad';
   return new Game(genW(c.s), mkChars(c.p));
 }
 ```
@@ -253,19 +270,15 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-export function Button({ 
+export function Button({
   variant = 'primary',
   size = 'md',
   onClick,
-  children 
+  children,
 }: ButtonProps) {
   return (
     <button
-      className={cn(
-        'btn',
-        `btn-${variant}`,
-        `btn-${size}`
-      )}
+      className={cn('btn', `btn-${variant}`, `btn-${size}`)}
       onClick={onClick}
     >
       {children}
@@ -274,7 +287,7 @@ export function Button({
 }
 
 // ❌ Malo
-export const Btn = (props) => (
+export const Btn = props => (
   <button className={`btn ${props.v} ${props.s}`} onClick={props.oc}>
     {props.ch}
   </button>
@@ -301,19 +314,22 @@ import { cn } from '@/lib/utils';
 
 ```typescript
 // Archivos
-ComponentName.tsx       // React components
-useSomething.ts        // Custom hooks
-utils.ts              // Utilities
-types.ts             // Type definitions
+ComponentName.tsx; // React components
+useSomething.ts; // Custom hooks
+utils.ts; // Utilities
+types.ts; // Type definitions
 
 // Variables
-const MAX_PLAYERS = 8;           // Constants
-let playerCount = 0;             // Variables
-function calculateScore() {}    // Functions
-class GameEngine {}             // Classes
-interface PlayerData {}         // Interfaces
-type GameState = 'playing';    // Types
-enum Direction { UP, DOWN }    // Enums
+const MAX_PLAYERS = 8; // Constants
+let playerCount = 0; // Variables
+function calculateScore() {} // Functions
+class GameEngine {} // Classes
+interface PlayerData {} // Interfaces
+type GameState = 'playing'; // Types
+enum Direction {
+  UP,
+  DOWN,
+} // Enums
 ```
 
 ## 🧪 Testing
@@ -327,29 +343,29 @@ import { createGame } from './game';
 
 describe('Game Engine', () => {
   let game: Game;
-  
+
   beforeEach(() => {
     game = createGame(defaultConfig);
   });
-  
+
   describe('initialization', () => {
     it('should create game with correct players', () => {
       expect(game.players).toHaveLength(4);
     });
-    
+
     it('should generate unique world', () => {
       const game2 = createGame(defaultConfig);
       expect(game.world.id).not.toBe(game2.world.id);
     });
   });
-  
+
   describe('gameplay', () => {
     it('should process player actions', async () => {
       const result = await game.processAction({
         playerId: '1',
-        action: 'explore'
+        action: 'explore',
       });
-      
+
       expect(result.success).toBe(true);
       expect(result.narrative).toBeDefined();
     });
@@ -404,6 +420,7 @@ export async function generateWorld(
 ### README Updates
 
 Cuando agregues features, actualiza:
+
 - Lista de features en README
 - Instrucciones de instalación si cambian
 - Ejemplos de uso
@@ -437,6 +454,7 @@ npm run dev
 ### VS Code Settings
 
 `.vscode/settings.json`:
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -477,9 +495,9 @@ Usa componentes del sistema de diseño:
 import { Button, Card, Input } from '@/components/ui';
 
 // No reinventes la rueda
-<Button variant="primary" size="lg">
+<Button variant='primary' size='lg'>
   Click Me
-</Button>
+</Button>;
 ```
 
 ## 🚀 Deployment
@@ -502,16 +520,19 @@ npm run deploy:prod
 ## 📊 Prioridades
 
 ### Alta Prioridad
+
 - 🔴 Bugs críticos
 - 🔴 Vulnerabilidades de seguridad
 - 🔴 Breaking changes
 
 ### Media Prioridad
+
 - 🟡 Features del roadmap
 - 🟡 Mejoras de performance
 - 🟡 Refactoring importante
 
 ### Baja Prioridad
+
 - 🟢 Nice-to-have features
 - 🟢 Mejoras cosméticas
 - 🟢 Documentación menor
@@ -543,6 +564,7 @@ npm run deploy:prod
 ## 🏆 Reconocimiento
 
 Contribuidores destacados serán:
+
 - Listados en README
 - Mencionados en release notes
 - Invitados como collaborators

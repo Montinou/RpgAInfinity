@@ -3,14 +3,16 @@
 ## 🔧 Requisitos Previos
 
 ### Software Necesario
+
 - **Node.js**: v18.0.0 o superior ([Descargar](https://nodejs.org/))
 - **npm**: v9.0.0 o superior (incluido con Node.js)
 - **Git**: v2.0.0 o superior ([Descargar](https://git-scm.com/))
 - **Vercel CLI** (opcional): `npm i -g vercel`
 
 ### Cuentas Requeridas
+
 - **GitHub**: Para clonar el repositorio
-- **Anthropic**: Para obtener API key de Claude ([Obtener API Key](https://console.anthropic.com/))
+- **Google AI Studio**: Para obtener API key de Gemini ([Obtener API Key](https://makersuite.google.com/app/apikey))
 - **Vercel**: Para hosting (gratuito) ([Crear cuenta](https://vercel.com/signup))
 
 ## 🚀 Instalación Local
@@ -51,8 +53,8 @@ cp .env.example .env.local
 Editar `.env.local` con tus credenciales:
 
 ```env
-# REQUERIDO: Anthropic Claude API
-ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxxxxx
+# REQUERIDO: Google Gemini API
+GOOGLE_AI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 # OPCIONAL: Vercel KV (para persistencia)
 KV_URL=redis://default:xxx@xxx.kv.vercel-storage.com:xxxxx
@@ -172,14 +174,14 @@ RpgAInfinity/
 ```json
 {
   "scripts": {
-    "dev": "next dev",                    // Desarrollo local
-    "build": "next build",                // Build producción
-    "start": "next start",                // Iniciar producción
-    "lint": "next lint",                  // Verificar código
-    "test": "jest",                       // Ejecutar tests
-    "test:watch": "jest --watch",        // Tests en modo watch
-    "type-check": "tsc --noEmit",        // Verificar tipos
-    "format": "prettier --write .",      // Formatear código
+    "dev": "next dev", // Desarrollo local
+    "build": "next build", // Build producción
+    "start": "next start", // Iniciar producción
+    "lint": "next lint", // Verificar código
+    "test": "jest", // Ejecutar tests
+    "test:watch": "jest --watch", // Tests en modo watch
+    "type-check": "tsc --noEmit", // Verificar tipos
+    "format": "prettier --write .", // Formatear código
     "analyze": "ANALYZE=true next build" // Analizar bundle
   }
 }
@@ -190,6 +192,7 @@ RpgAInfinity/
 ### Configuración de Next.js
 
 `next.config.js`:
+
 ```javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -204,14 +207,15 @@ const nextConfig = {
   env: {
     ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
 ```
 
 ### Configuración de Vercel
 
 `vercel.json`:
+
 ```json
 {
   "buildCommand": "npm run build",
@@ -231,6 +235,7 @@ module.exports = nextConfig
 ### Configuración de TypeScript
 
 `tsconfig.json`:
+
 ```json
 {
   "compilerOptions": {
@@ -260,6 +265,7 @@ module.exports = nextConfig
 ## 🐛 Solución de Problemas
 
 ### Error: "Cannot find module"
+
 ```bash
 # Limpiar cache y reinstalar
 rm -rf node_modules package-lock.json
@@ -267,6 +273,7 @@ npm install
 ```
 
 ### Error: "ANTHROPIC_API_KEY is not defined"
+
 ```bash
 # Verificar que .env.local existe y tiene la key
 cat .env.local
@@ -275,6 +282,7 @@ cat .env.local
 ```
 
 ### Error: "Port 3000 already in use"
+
 ```bash
 # Cambiar puerto
 PORT=3001 npm run dev
@@ -284,6 +292,7 @@ lsof -ti:3000 | xargs kill
 ```
 
 ### Build falla en Vercel
+
 ```bash
 # Verificar logs en Vercel Dashboard
 # Común: falta variable de entorno
@@ -293,6 +302,7 @@ lsof -ti:3000 | xargs kill
 ## 🔄 Actualización
 
 ### Actualizar desde GitHub
+
 ```bash
 # Obtener últimos cambios
 git pull origin main
@@ -305,6 +315,7 @@ npm run build
 ```
 
 ### Actualizar dependencias
+
 ```bash
 # Ver dependencias desactualizadas
 npm outdated
@@ -319,6 +330,7 @@ npm install package@latest
 ## 🧪 Testing
 
 ### Ejecutar tests
+
 ```bash
 # Todos los tests
 npm test
@@ -334,6 +346,7 @@ npm run test:watch
 ```
 
 ### Tests E2E con Playwright
+
 ```bash
 # Instalar Playwright
 npx playwright install
@@ -345,11 +358,13 @@ npm run test:e2e
 ## 📊 Monitoreo
 
 ### Vercel Analytics
+
 1. En Vercel Dashboard, ir a Analytics
 2. Habilitar Web Analytics
 3. Ver métricas en tiempo real
 
 ### Performance
+
 ```bash
 # Analizar bundle size
 npm run analyze
@@ -361,18 +376,21 @@ npm run lighthouse
 ## 🆘 Soporte
 
 ### Documentación
+
 - [Next.js Docs](https://nextjs.org/docs)
 - [Vercel Docs](https://vercel.com/docs)
 - [Anthropic Docs](https://docs.anthropic.com/)
 
 ### Comunidad
+
 - [GitHub Issues](https://github.com/Montinou/RpgAInfinity/issues)
 - [Discussions](https://github.com/Montinou/RpgAInfinity/discussions)
 
 ### Contacto
+
 - GitHub: [@Montinou](https://github.com/Montinou)
 - Email: Ver perfil de GitHub
 
 ---
 
-*¿Problemas? Abre un [issue](https://github.com/Montinou/RpgAInfinity/issues/new)*
+_¿Problemas? Abre un [issue](https://github.com/Montinou/RpgAInfinity/issues/new)_

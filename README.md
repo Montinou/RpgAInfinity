@@ -10,6 +10,8 @@
 
 RpgAInfinity es un ecosistema de juegos narrativos que genera experiencias únicas e irrepetibles para familias y grupos. Cada sesión es completamente diferente gracias a la generación procedural con IA de mundos, personajes, historias y mecánicas de juego.
 
+> **🔄 Actualización Importante**: El sistema ahora utiliza Google Gemini AI a través del Vercel AI SDK para mayor eficiencia y menor costo. La integración es completamente compatible con el código existente.
+
 ### 🎯 Características Principales
 
 - **🤖 Generación con IA**: Mundos, personajes y narrativas únicas en cada partida
@@ -22,18 +24,23 @@ RpgAInfinity es un ecosistema de juegos narrativos que genera experiencias únic
 ## 📦 Módulos del Sistema
 
 ### 1. 🏰 RPG Cooperativo Narrativo
+
 Aventuras épicas donde las decisiones del grupo moldean la historia.
 
 ### 2. 🕵️ Motor de Deducción Social
+
 Juegos de misterio donde hay que descubrir al traidor oculto.
 
 ### 3. 🏘️ Simulador de Villa
+
 Gestión de recursos y supervivencia con personajes autónomos.
 
 ### 4. 📚 Generador de Crónicas
+
 Creación colaborativa de historias familiares únicas.
 
 ### 5. ⚔️ Sistema de Combate Táctico
+
 Batallas estratégicas con consecuencias narrativas.
 
 ## 🚀 Inicio Rápido
@@ -77,18 +84,21 @@ vercel deploy
 ## 🗺️ Roadmap
 
 ### Fase 1: Fundación (Q1 2025) ✅
+
 - [x] Motor de generación narrativa
 - [x] Sistema de deducción social
 - [x] Simulador de villa básico
 - [x] Integración con Claude API
 
 ### Fase 2: Expansión (Q2 2025) 🚧
+
 - [ ] Sistema de perfiles familiares
 - [ ] Guardado en la nube
 - [ ] Modo multijugador online
 - [ ] Editor de temas personalizado
 
 ### Fase 3: Ecosistema (Q3 2025) 📅
+
 - [ ] Marketplace de aventuras
 - [ ] Sistema de logros
 - [ ] Integración con asistentes de voz

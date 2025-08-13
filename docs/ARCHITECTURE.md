@@ -21,24 +21,24 @@ graph TB
         State[Estado Local]
         Cache[Cache Local]
     end
-    
+
     subgraph "Vercel Edge"
         Next[Next.js App]
         API[API Routes]
         MW[Middleware]
     end
-    
+
     subgraph "Servicios Externos"
         Claude[Anthropic Claude API]
         KV[Vercel KV]
         Storage[Vercel Blob]
     end
-    
+
     subgraph "CDN"
         Static[Assets Estáticos]
         Images[Imágenes Optimizadas]
     end
-    
+
     UI --> Next
     Next --> API
     API --> MW
@@ -89,6 +89,7 @@ RpgAInfinity/
 ## 🔧 Stack Técnico Detallado
 
 ### Frontend
+
 ```typescript
 // Next.js 14 con App Router
 // React 18 con Server Components
@@ -102,6 +103,7 @@ export default async function GamePage() {
 ```
 
 ### Gestión de Estado
+
 ```typescript
 // Zustand para estado global
 // React Query para server state
@@ -119,28 +121,29 @@ interface GameStore {
 ```
 
 ### Integración IA
+
 ```typescript
 // Servicio de IA con rate limiting y caching
 class AIService {
   private client: AnthropicClient;
   private cache: Map<string, AIResponse>;
-  
+
   async generateContent(prompt: string): Promise<AIResponse> {
     // Check cache first
     if (this.cache.has(prompt)) {
       return this.cache.get(prompt);
     }
-    
+
     // Rate limiting
     await this.rateLimiter.check();
-    
+
     // Call Claude API
     const response = await this.client.messages.create({
-      model: "claude-3-opus-20240229",
+      model: 'claude-3-opus-20240229',
       max_tokens: 1000,
-      messages: [{ role: "user", content: prompt }]
+      messages: [{ role: 'user', content: prompt }],
     });
-    
+
     // Cache response
     this.cache.set(prompt, response);
     return response;
@@ -149,6 +152,7 @@ class AIService {
 ```
 
 ### Base de Datos
+
 ```typescript
 // Vercel KV para sesiones y estado
 // Vercel Blob para assets generados
@@ -176,6 +180,7 @@ interface Player {
 ## 🔄 Flujo de Datos
 
 ### 1. Inicialización del Juego
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -183,7 +188,7 @@ sequenceDiagram
     participant API
     participant AI
     participant DB
-    
+
     User->>UI: Selecciona juego
     UI->>API: POST /api/game/create
     API->>AI: Genera mundo/personajes
@@ -195,13 +200,14 @@ sequenceDiagram
 ```
 
 ### 2. Turno de Juego
+
 ```mermaid
 sequenceDiagram
     participant Player
     participant Game
     participant Engine
     participant AI
-    
+
     Player->>Game: Realiza acción
     Game->>Engine: Procesa acción
     Engine->>AI: Genera consecuencias
@@ -213,11 +219,13 @@ sequenceDiagram
 ## 🚀 Optimizaciones de Performance
 
 ### 1. Server-Side Rendering (SSR)
+
 - Páginas estáticas pre-renderizadas
 - Datos iniciales en servidor
 - Hidratación selectiva
 
 ### 2. Code Splitting
+
 ```javascript
 // Lazy loading de módulos de juego
 const RPGGame = lazy(() => import('./games/RPG'));
@@ -225,49 +233,53 @@ const DeductionGame = lazy(() => import('./games/Deduction'));
 ```
 
 ### 3. Caching Strategy
+
 - **CDN**: Assets estáticos (1 año)
 - **Browser**: API responses (5 min)
 - **Server**: AI responses (1 hora)
 - **KV Store**: Game state (24 horas)
 
 ### 4. Image Optimization
+
 ```jsx
 // Next.js Image con lazy loading
-<Image 
-  src="/hero.webp"
-  alt="Hero"
+<Image
+  src='/hero.webp'
+  alt='Hero'
   width={800}
   height={600}
   priority={false}
-  placeholder="blur"
+  placeholder='blur'
 />
 ```
 
 ## 🔒 Seguridad
 
 ### 1. API Protection
+
 ```typescript
 // Middleware de autenticación
 export async function middleware(request: NextRequest) {
   const token = request.headers.get('authorization');
-  
+
   if (!token || !isValidToken(token)) {
     return new Response('Unauthorized', { status: 401 });
   }
-  
+
   // Rate limiting
   const identifier = request.ip || 'anonymous';
   const { success } = await ratelimit.limit(identifier);
-  
+
   if (!success) {
     return new Response('Too Many Requests', { status: 429 });
   }
-  
+
   return NextResponse.next();
 }
 ```
 
 ### 2. Environment Variables
+
 ```env
 # .env.local (never committed)
 ANTHROPIC_API_KEY=sk-ant-...
@@ -278,34 +290,38 @@ BLOB_READ_WRITE_TOKEN=...
 ```
 
 ### 3. Input Validation
+
 ```typescript
 // Zod para validación de esquemas
 const GameConfigSchema = z.object({
   players: z.array(z.string()).min(1).max(8),
   difficulty: z.enum(['easy', 'normal', 'hard']),
   theme: z.string(),
-  duration: z.number().min(5).max(60)
+  duration: z.number().min(5).max(60),
 });
 ```
 
 ## 📊 Monitoreo y Analytics
 
 ### 1. Vercel Analytics
+
 - Performance metrics
 - Web Vitals
 - User engagement
 
 ### 2. Error Tracking
+
 ```typescript
 // Sentry para error tracking
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
   environment: process.env.NODE_ENV,
-  tracesSampleRate: 0.1
+  tracesSampleRate: 0.1,
 });
 ```
 
 ### 3. Custom Metrics
+
 ```typescript
 // Métricas de juego
 interface GameMetrics {
@@ -320,6 +336,7 @@ interface GameMetrics {
 ## 🔄 CI/CD Pipeline
 
 ### GitHub Actions
+
 ```yaml
 name: Deploy to Vercel
 on:
@@ -337,7 +354,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run lint
-      
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -351,21 +368,25 @@ jobs:
 ## 🎮 Módulos del Sistema
 
 ### 1. Motor de Generación Narrativa
+
 - Prompts optimizados para Claude
 - Templates de historias
 - Sistema de memoria contextual
 
 ### 2. Sistema de Decisiones
+
 - Árbol de decisiones dinámico
 - Consecuencias ponderadas
 - Múltiples finales
 
 ### 3. Gestión de Personajes
+
 - Generación procedural
 - Rasgos de personalidad
 - Evolución dinámica
 
 ### 4. Sistema de Recursos
+
 - Economía del juego
 - Balance automático
 - Progresión adaptativa
@@ -373,11 +394,13 @@ jobs:
 ## 📈 Escalabilidad
 
 ### Horizontal Scaling
+
 - Serverless functions auto-escalables
 - CDN global de Vercel
 - Edge functions para baja latencia
 
 ### Vertical Scaling
+
 - Optimización de prompts AI
 - Caching agresivo
 - Batch processing
@@ -392,4 +415,4 @@ jobs:
 
 ---
 
-*Última actualización: Enero 2025*
+_Última actualización: Enero 2025_
