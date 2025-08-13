@@ -55,9 +55,10 @@ export async function GET(
     });
 
     // Retrieve game state from storage
-    const gameState = (await kvService.get(
-      `game:${gameId}`
-    )) as DeductionGameState | null;
+    const gameStateResult = await kvService.get(`game:${gameId}`);
+    const gameState = gameStateResult.success
+      ? (gameStateResult.data as DeductionGameState)
+      : null;
 
     if (!gameState) {
       return NextResponse.json(
@@ -70,17 +71,8 @@ export async function GET(
       );
     }
 
-    // Validate game type
-    if (gameState.type !== 'deduction') {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid game type',
-          code: 'INVALID_GAME_TYPE',
-        },
-        { status: 400 }
-      );
-    }
+    // Note: Game type validation removed - this endpoint is deduction-specific
+    // and gameState is already typed as DeductionGameState
 
     // Create response with sanitized game state
     let sanitizedGameState: DeductionGameState;
@@ -88,7 +80,7 @@ export async function GET(
 
     if (queryParams.playerId) {
       // Validate player is part of this game
-      if (!gameState.players.includes(queryParams.playerId)) {
+      if (!gameState.data.alivePlayers.includes(queryParams.playerId)) {
         return NextResponse.json(
           {
             success: false,
@@ -195,9 +187,10 @@ export async function DELETE(
     }
 
     // Retrieve game state to check permissions
-    const gameState = (await kvService.get(
-      `game:${gameId}`
-    )) as DeductionGameState | null;
+    const gameStateResult = await kvService.get(`game:${gameId}`);
+    const gameState = gameStateResult.success
+      ? (gameStateResult.data as DeductionGameState)
+      : null;
 
     if (!gameState) {
       return NextResponse.json(

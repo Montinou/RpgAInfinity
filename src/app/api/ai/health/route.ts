@@ -5,7 +5,7 @@
  * Used by monitoring systems, load balancers, and operational dashboards
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { claudeService } from '@/lib/ai/claude';
 import { kvService } from '@/lib/database/kv-service';
 
@@ -221,7 +221,7 @@ function getMemoryUsage(): string {
 /**
  * GET /api/ai/health - Comprehensive health check
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   const startTime = Date.now();
 
   try {
@@ -403,7 +403,7 @@ export async function GET(request: NextRequest) {
 /**
  * GET /api/ai/health?check=quick - Quick health check (lighter)
  */
-export async function HEAD(request: NextRequest) {
+export async function HEAD() {
   try {
     // Quick check - just verify service is responding
     const analytics = claudeService.getAnalytics();
@@ -424,7 +424,7 @@ export async function HEAD(request: NextRequest) {
 /**
  * OPTIONS - CORS preflight
  */
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {

@@ -307,7 +307,7 @@ export async function GET(request: NextRequest) {
  */
 export async function PUT(request: NextRequest) {
   try {
-    const { clientId } = validateRequest(request);
+    validateRequest(request); // Validate request headers
     const body = await request.json();
 
     // Validate structured request
@@ -363,7 +363,7 @@ export async function PUT(request: NextRequest) {
 /**
  * OPTIONS - CORS preflight
  */
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {

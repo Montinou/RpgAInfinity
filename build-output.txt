@@ -8,3 +8,16 @@
    Creating an optimized production build ...
  ✓ Compiled successfully
    Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/api/ai/generate/route.ts:310:11
+Type error: 'clientId' is declared but its value is never read.
+
+[0m [90m 308 |[39m [36mexport[39m [36masync[39m [36mfunction[39m [33mPUT[39m(request[33m:[39m [33mNextRequest[39m) {[0m
+[0m [90m 309 |[39m   [36mtry[39m {[0m
+[0m[31m[1m>[22m[39m[90m 310 |[39m     [36mconst[39m { clientId } [33m=[39m validateRequest(request)[33m;[39m[0m
+[0m [90m     |[39m           [31m[1m^[22m[39m[0m
+[0m [90m 311 |[39m     [36mconst[39m body [33m=[39m [36mawait[39m request[33m.[39mjson()[33m;[39m[0m
+[0m [90m 312 |[39m[0m
+[0m [90m 313 |[39m     [90m// Validate structured request[39m[0m
+Next.js build worker exited with code: 1 and signal: null

@@ -61,9 +61,10 @@ export async function POST(
     const validatedRequest = StartGameRequestSchema.parse(body);
 
     // Retrieve game state from storage
-    const gameState = (await kvService.get(
-      `game:${gameId}`
-    )) as DeductionGameState | null;
+    const gameStateResult = await kvService.get(`game:${gameId}`);
+    const gameState = gameStateResult.success
+      ? (gameStateResult.data as DeductionGameState)
+      : null;
 
     if (!gameState) {
       return NextResponse.json(
