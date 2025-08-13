@@ -204,7 +204,7 @@ export async function DELETE(
     }
 
     // Check if requester is the creator or has admin privileges
-    const isCreator = gameState.players[0] === requesterId; // First player is creator
+    const isCreator = gameState.data.alivePlayers[0] === requesterId; // First player is creator
     //TODO: Implement admin role checking
     const isAdmin = false;
 
@@ -220,10 +220,7 @@ export async function DELETE(
     }
 
     // Prevent deletion of active games
-    if (
-      gameState.status === 'active' ||
-      gameState.phase !== 'role_assignment'
-    ) {
+    if (gameState.phase !== 'role_assignment') {
       return NextResponse.json(
         {
           success: false,
@@ -283,16 +280,16 @@ async function getPlayerSpecificData(
     const cluesData = await kvService.get(`game_clues:${gameId}:${playerId}`);
 
     // Get player's voting history
-    const votingHistory = await kvService.get(
-      `voting_history:${gameId}:${playerId}`
-    );
+    // const votingHistory = await kvService.get(
+    //   `voting_history:${gameId}:${playerId}`
+    // );
 
     return {
       gameSpecificData: {
-        role: roleData || null,
+        role: (roleData && roleData.success ? roleData.data : null) || null,
         status: 'alive', // Default status
         votingPower: 1,
-        clues: cluesData || [],
+        clues: (cluesData && cluesData.success ? cluesData.data : null) || [],
         suspicions: {},
         communications: [],
         actionHistory: [],
@@ -310,26 +307,33 @@ function sanitizeGameStateForPlayer(
   playerId: string,
   includeSecrets: boolean
 ): DeductionGameState {
-  // Create a copy of the game state
-  const sanitized = { ...gameState };
+  // Create a sanitized copy of the game state
+  const sanitized: DeductionGameState = {
+    ...gameState,
+    data: {
+      ...gameState.data,
+      // Filter events based on player visibility
+      events: gameState.data.events.filter(
+        event => event.isPublic || event.affectedPlayers.includes(playerId)
+      ),
+      // Filter clues based on player access
+      cluesAvailable: gameState.data.cluesAvailable.filter(clue => {
+        return (
+          clue.isRevealed || (clue.affectedPlayers?.includes(playerId) ?? false)
+        );
+      }),
+      // Filter night actions (players shouldn't see others' secret actions)
+      nightActions: !includeSecrets
+        ? gameState.data.nightActions.filter(
+            action => action.actorId === playerId || action.isResolved
+          )
+        : gameState.data.nightActions,
+    },
+  };
 
-  // Filter events based on player visibility
-  sanitized.data.events = gameState.data.events.filter(
-    event => event.isPublic || event.affectedPlayers.includes(playerId)
-  );
-
-  // Filter clues based on player access
-  sanitized.data.cluesAvailable = gameState.data.cluesAvailable.filter(clue => {
-    return (
-      clue.isRevealed || (clue.affectedPlayers?.includes(playerId) ?? false)
-    );
-  });
-
-  // Filter night actions (players shouldn't see others' secret actions)
+  // Additional filtering for secrets
   if (!includeSecrets) {
-    sanitized.data.nightActions = gameState.data.nightActions.filter(
-      action => action.actorId === playerId || action.isResolved
-    );
+    // Already handled above
   }
 
   return sanitized;
@@ -338,18 +342,20 @@ function sanitizeGameStateForPlayer(
 function sanitizeGameStateForPublic(
   gameState: DeductionGameState
 ): DeductionGameState {
-  const sanitized = { ...gameState };
-
-  // Only show public events
-  sanitized.data.events = gameState.data.events.filter(event => event.isPublic);
-
-  // Only show revealed clues
-  sanitized.data.cluesAvailable = gameState.data.cluesAvailable.filter(
-    clue => clue.isRevealed
-  );
-
-  // Don't show night actions at all for public view
-  sanitized.data.nightActions = [];
+  const sanitized: DeductionGameState = {
+    ...gameState,
+    data: {
+      ...gameState.data,
+      // Only show public events
+      events: gameState.data.events.filter(event => event.isPublic),
+      // Only show revealed clues
+      cluesAvailable: gameState.data.cluesAvailable.filter(
+        clue => clue.isRevealed
+      ),
+      // Don't show night actions at all for public view
+      nightActions: [],
+    },
+  };
 
   return sanitized;
 }

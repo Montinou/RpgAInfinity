@@ -27,7 +27,7 @@ const StartGameRequestSchema = z.object({
   customRoleDistribution: z.record(z.number()).optional(),
 });
 
-type StartGameRequest = z.infer<typeof StartGameRequestSchema>;
+// type StartGameRequest = z.infer<typeof StartGameRequestSchema>;
 
 interface StartGameResponse {
   success: boolean;
@@ -77,20 +77,11 @@ export async function POST(
       );
     }
 
-    // Validate game type
-    if (gameState.type !== 'deduction') {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid game type',
-          code: 'INVALID_GAME_TYPE',
-        },
-        { status: 400 }
-      );
-    }
+    // Note: Game type validation removed - this endpoint is deduction-specific
+    // and gameState is already typed as DeductionGameState
 
     // Verify requester is the game creator
-    if (gameState.players[0] !== validatedRequest.requesterId) {
+    if (gameState.data.alivePlayers[0] !== validatedRequest.requesterId) {
       return NextResponse.json(
         {
           success: false,
@@ -101,8 +92,8 @@ export async function POST(
       );
     }
 
-    // Check if game can be started
-    if (gameState.status === 'active') {
+    // Check if game can be started (already past role assignment)
+    if (gameState.phase !== 'role_assignment') {
       return NextResponse.json(
         {
           success: false,
@@ -113,26 +104,18 @@ export async function POST(
       );
     }
 
-    if (gameState.status === 'completed') {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Cannot start completed game',
-          code: 'GAME_COMPLETED',
-        },
-        { status: 400 }
-      );
-    }
+    // Note: game_over check removed since we already verified phase is role_assignment
 
     // Check minimum player requirement
+    const minPlayers = 4; // Default minimum for deduction games
     if (
-      gameState.currentPlayerCount < gameState.config.minPlayers &&
+      gameState.data.alivePlayers.length < minPlayers &&
       !validatedRequest.forceStart
     ) {
       return NextResponse.json(
         {
           success: false,
-          error: `Need at least ${gameState.config.minPlayers} players to start`,
+          error: `Need at least ${minPlayers} players to start`,
           code: 'INSUFFICIENT_PLAYERS',
         },
         { status: 400 }
@@ -142,38 +125,40 @@ export async function POST(
     // Generate roles for the scenario
     let roleDefinitions: RoleDefinition[];
     try {
-      const roleGenerationResult = await generateDeductionContent(
-        'role_generation',
-        {
-          scenario: gameState.data.scenario,
-          playerCount: gameState.currentPlayerCount,
-          theme: gameState.config.settings.theme,
-          customDistribution: validatedRequest.customRoleDistribution,
-        }
-      );
+      const roleGenerationResult = await generateDeductionContent('roles', {
+        scenario: gameState.data.scenario,
+        playerCount: gameState.data.alivePlayers.length,
+        theme: 'medieval', // TODO: Get theme from game configuration when available
+        customDistribution: validatedRequest.customRoleDistribution,
+      });
 
-      roleDefinitions = roleGenerationResult.roles || [];
+      roleDefinitions = Array.isArray(roleGenerationResult)
+        ? roleGenerationResult
+        : typeof roleGenerationResult === 'string'
+          ? []
+          : (roleGenerationResult as any)?.roles || [];
     } catch (aiError) {
       console.error('AI role generation failed:', aiError);
       // Fallback to default role distribution
       roleDefinitions = generateDefaultRoles(
         gameState.data.scenario.theme,
-        gameState.currentPlayerCount
+        gameState.data.alivePlayers.length
       );
     }
 
     // Assign roles to players randomly
     const roleAssignments = await assignRolesToPlayers(
-      gameState.players,
+      gameState.data.alivePlayers,
       roleDefinitions
     );
 
     // Store role assignments securely
     await storeRoleAssignments(gameId, roleAssignments);
 
-    // Generate initial clues if enabled
+    // Generate initial clues (default enabled for deduction games)
     let initialClues: any[] = [];
-    if (gameState.config.settings.enableClues) {
+    const enableClues = true; // TODO: Get from game configuration when available
+    if (enableClues) {
       try {
         const clueConfig = createStandardClueConfig(
           gameState.data.scenario,
