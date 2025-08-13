@@ -114,5 +114,5 @@ storybook-static/
 
 # Lock files (keep only one)
 yarn.lock
-package-lock.json
+# package-lock.json  # Allow this for Vercel deployment
 pnpm-lock.yaml
